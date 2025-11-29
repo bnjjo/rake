@@ -164,6 +164,8 @@ fn move_snake(
     snake[1] = [head[0], head[1]];
     head[0] += direction[0] as i16;
     head[1] += direction[1] as i16;
+    snake[snake_length - 1] = *tail;
+    snake[0] = *head;
     Ok(())
 }
 
@@ -186,8 +188,8 @@ fn main() -> io::Result<()> {
     let mut stdout = io::stdout();
     stdout.execute(cursor::Hide)?;
 
-    let height = 20;
-    let width = 50;
+    let height = 15;
+    let width = 40;
     let mut wall: Vec<[i16; 2]> = vec![];
     draw_border(height, width, &mut stdout, &mut wall)?;
 
@@ -221,12 +223,12 @@ fn main() -> io::Result<()> {
         }
 
         if head[0] == apple[0] && head[1] == apple[1] {
-            snake.insert(snake_length - 2, [tail[0], tail[1]]);
+            snake.insert(snake_length - 1, [tail[0], tail[1]]);
             apple_exists = false;
             score += 1;
         }
 
-        if snake[1..snake_length - 1].contains(&head) {
+        if snake[1..snake_length].contains(&head) {
             break;
         }
 
