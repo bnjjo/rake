@@ -200,6 +200,7 @@ fn main() -> io::Result<()> {
     let mut apple: [i16; 2] = [0, 0];
     let mut apple_exists = false;
     let mut score = 0;
+    let mut rng = rand::rng();
 
     // MAIN GAME LOOP
     let mut x = 1;
@@ -207,7 +208,6 @@ fn main() -> io::Result<()> {
     loop {
         let duration = time::Duration::from_millis(100);
         let snake_length = snake.len();
-        let mut rng = rand::rng();
 
         while !apple_exists {
             spawn_apple(
